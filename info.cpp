@@ -24,7 +24,17 @@ bool loggIn(){
     }
 };
 
+void reg_user(string username, string password){
+        ofstream file;                // For persistant storage, we ae writing to file.
+        file.open("data\\" + username + ".txt");
+        file << username << endl << password;
+        file.close();
+}
 int main() { 
+    int n = 10;  //no of users.
+    string usernames[n]; 
+    int count_users =0; //no.of users registered.
+
     int choice;
     cout << "1.Register:" << endl;
     cout << "2.login:" << endl;
@@ -32,16 +42,29 @@ int main() {
     cout << "Enter Your Choice:" << flush;
     cin >> choice;
         if(choice == 1){
+            if(count_users >= n){
+                cout << "Maximun limit of user has reached!" << endl;
+                system("PAUSE");
+                return 0;
+            }
+
         string username, password;
         cout << "Select a username:"; cin >> username;
         cout << "Select a password:"; cin >> password;
 
-        ofstream file;
-        file.open("data\\" + username + ".txt");
-        file << username << endl << password;
-        file.close();
+        for(int i=0; i<count_users; i++){
+            if(usernames[i] == username){
+                cout << "Name already exists" << endl;
+                system("PAUSE");
+                return 0;
+            }
+        }
+        usernames[count_users] = username;
+        count_users++;
 
-        main();
+        reg_user(username, password);
+
+        
     }
 
     else if(choice == 2){
@@ -54,10 +77,11 @@ int main() {
         }
         else{
             cout << "Successfully Logged In." << endl;
-            system("PAUSE");
+            main();        //recursive function.
             return 1;
         }
     };
+    main();
 
 
 
