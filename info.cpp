@@ -12,7 +12,7 @@ bool loggIn(){
     cout << "Enter password:" << flush;
     cin >> password;
 
-    ifstream read("data\\" + username + ".txt");   //ifstream-> it is used to read 
+    ifstream read("sample file\\" + username + ".txt");   //ifstream-> it is used to read 
     getline(read, un);
     getline(read, pw);                             //information from files.
 
@@ -26,7 +26,7 @@ bool loggIn(){
 
 void reg_user(string username, string password){
         ofstream file;                // For persistant storage, we ae writing to file.
-        file.open("data\\" + username + ".txt");
+        file.open("sample file\\" + username + ".txt");
         file << username << endl << password;
         file.close();
 }
